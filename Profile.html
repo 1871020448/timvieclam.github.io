@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hồ Sơ Cá Nhân - JobMatch Pro</title>
+  <link href="./bootstrap-5.3.3-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="profile.css">
+  <script src="./jquerty-3.7.1.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top bg-white shadow-sm">
+        <div class="container">
+          <a class="navbar-brand" href="./index.html">
+            <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623" alt="JobMatch Pro" width="40" height="40" class="rounded-circle">
+            <strong>JobMatch Pro</strong>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="index.html">Đăng xuất</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+<br>
+  <div class="container py-5">
+    <h1 class="text-center">Hồ Sơ Cá Nhân</h1>
+    <form id="profile-form" class="mt-4">
+      <div class="mb-3">
+        <label for="full-name" class="form-label">Họ và Tên</label>
+        <input type="text" class="form-control" id="full-name" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" required>
+      </div>
+      <div class="mb-3">
+        <label for="phone" class="form-label">Số Điện Thoại</label>
+        <input type="text" class="form-control" id="phone" required>
+      </div>
+      <div class="mb-3">
+        <label for="address" class="form-label">Địa Chỉ</label>
+        <input type="text" class="form-control" id="address" required>
+      </div>
+      <div class="mb-3">
+        <label for="bio" class="form-label">Giới Thiệu Bản Thân</label>
+        <textarea class="form-control" id="bio" rows="4"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Lưu Hồ Sơ</button>
+    </form>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+  function loadProfile() {
+    const profile = JSON.parse(localStorage.getItem('userProfile')) || {};
+    $('#full-name').val(profile.fullName || '');
+    $('#email').val(profile.email || '');
+    $('#phone').val(profile.phone || '');
+    $('#address').val(profile.address || '');
+    $('#bio').val(profile.bio || '');
+  }
+
+  $('#profile-form').submit(function (event) {
+    event.preventDefault();
+    const profile = {
+      fullName: $('#full-name').val().trim(),
+      email: $('#email').val().trim(),
+      phone: $('#phone').val().trim(),
+      address: $('#address').val().trim(),
+      bio: $('#bio').val().trim(),
+    };
+
+    localStorage.setItem('userProfile', JSON.stringify(profile));
+    alert('Hồ sơ của bạn đã được lưu!');
+    window.location.href = "index.html";
+  });
+
+  $('#logout-button').click(function () {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userProfile');
+    alert('Bạn đã đăng xuất thành công!');
+    window.location.href = "index.html";
+  });
+
+  loadProfile();
+});
+  </script>
+  <script src="./bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
